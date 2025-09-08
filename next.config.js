@@ -1,6 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  output: 'export',
+  trailingSlash: true,
+  skipTrailingSlashRedirect: true,
+  distDir: 'out',
+  images: {
+    unoptimized: true
+  },
+  // Para funcionar com subpaths no GitHub Pages
+  // Se o repositório for nomeado diferente de username.github.io
+  // descomente e ajuste a linha abaixo:
+  // basePath: '/tetris',
+  // assetPrefix: '/tetris/',
 };
 
 module.exports = nextConfig;
