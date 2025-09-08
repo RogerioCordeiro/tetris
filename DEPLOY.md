@@ -73,15 +73,18 @@ Após o primeiro deploy bem-sucedido, o site estará disponível em:
 ### Erro de dependências do NPM (ERESOLVE)
 
 Se você encontrar erros como:
+
 ```
 npm error ERESOLVE could not resolve
 ```
 
 O projeto está configurado com:
+
 - Next.js 15+ (compatível com React 19)
 - `.npmrc` com `legacy-peer-deps=true`
 
 Para resolver localmente:
+
 ```bash
 rm -rf node_modules package-lock.json
 npm install --legacy-peer-deps
