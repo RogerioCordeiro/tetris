@@ -10,7 +10,7 @@ on:
     types:
       - closed
 
-# Permite executar manualmente do Actions tab
+  # Permite executar manualmente do Actions tab
   workflow_dispatch:
 
 # Configura as permissões do GITHUB_TOKEN para permitir deploy no Pages
@@ -38,7 +38,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: 'npm'
+          cache: "npm"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

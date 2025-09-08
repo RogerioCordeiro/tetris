@@ -64,6 +64,7 @@ npx serve out
 ## URL do deploy
 
 Após o primeiro deploy bem-sucedido, o site estará disponível em:
+
 - `https://username.github.io/tetris` (se for um repositório comum)
 - `https://username.github.io` (se o repositório se chamar `username.github.io`)
 
