@@ -5,6 +5,8 @@ import { Inter } from "next/font/google";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { LanguageSelector } from "@/components/LanguageSelector";
+import { useTranslation } from "@/lib/i18n";
 import { Play, Pause, Music, VolumeX } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -92,6 +94,7 @@ const generateNextPieces = (count = 3) => {
 };
 
 export default function Tetris() {
+  const { t } = useTranslation();
   const [board, setBoard] = useState<BoardType>(createEmptyBoard());
   const [currentPiece, setCurrentPiece] = useState<Piece | null>(null);
   const [nextPieces, setNextPieces] = useState<TetrominoType[]>(
@@ -596,7 +599,7 @@ export default function Tetris() {
         <div className="flex flex-col gap-4">
           <div className="bg-white p-3 rounded-lg shadow-lg">
             <h3 className="text-lg font-bold mb-2 text-center text-gray-800">
-              Hold
+              {t("game.hold")}
             </h3>
             <div className="w-20 h-16 rounded flex items-center justify-center bg-slate-200">
               {renderPiece(heldPiece, 15)}
@@ -606,25 +609,27 @@ export default function Tetris() {
           <div className="bg-white p-3 rounded-lg shadow-lg">
             <div className="space-y-2">
               <div>
-                <h4 className="font-bold text-gray-800">Highscore</h4>
+                <h4 className="font-bold text-gray-800">
+                  {t("game.highscore")}
+                </h4>
                 <div className="p-1 rounded text-center bg-slate-200 text-black">
                   {highScore}
                 </div>
               </div>
               <div>
-                <h4 className="font-bold text-gray-800">Level</h4>
+                <h4 className="font-bold text-gray-800">{t("game.level")}</h4>
                 <div className="p-1 rounded text-center bg-slate-200 text-black">
                   {level}
                 </div>
               </div>
               <div>
-                <h4 className="font-bold text-gray-800">Score</h4>
+                <h4 className="font-bold text-gray-800">{t("game.score")}</h4>
                 <div className="p-1 rounded text-center bg-slate-200 text-black">
                   {score}
                 </div>
               </div>
               <div>
-                <h4 className="font-bold text-gray-800">Lines</h4>
+                <h4 className="font-bold text-gray-800">{t("game.lines")}</h4>
                 <div className="p-1 rounded text-center bg-slate-200 text-black">
                   {lines}
                 </div>
@@ -668,10 +673,14 @@ export default function Tetris() {
 
           <div className="h-12 flex items-center justify-center mt-4">
             {gameOver && (
-              <div className="text-2xl font-bold text-red-600">Game Over!</div>
+              <div className="text-2xl font-bold text-red-600">
+                {t("game.gameOver")}
+              </div>
             )}
             {isPaused && !gameOver && (
-              <div className="text-2xl font-bold text-blue-600">Paused</div>
+              <div className="text-2xl font-bold text-blue-600">
+                {t("game.paused")}
+              </div>
             )}
           </div>
         </div>
@@ -679,7 +688,7 @@ export default function Tetris() {
         <div className="flex flex-col gap-4">
           <div className="bg-white p-3 rounded-lg shadow-lg">
             <h3 className="text-lg font-bold mb-2 text-center text-gray-800">
-              Next
+              {t("game.next")}
             </h3>
             <div className="space-y-3">
               {nextPieces.slice(0, 3).map((piece, index) => (
@@ -698,7 +707,7 @@ export default function Tetris() {
       <div className="fixed bottom-4 left-4 right-4 flex justify-between items-end">
         <div className="bg-white p-4 rounded-lg shadow-lg">
           <h3 className="text-lg font-bold mb-3 text-center text-gray-800">
-            Controls
+            {t("controls.title")}
           </h3>
           <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
             <div className="flex items-center gap-2">
@@ -711,30 +720,31 @@ export default function Tetris() {
                   className="object-contain"
                 />
               </div>
-              <span className="text-gray-700">Move/Rotate</span>
+              <span className="text-gray-700">{t("controls.move")}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="bg-gray-200 px-2 py-1 rounded text-xs font-mono min-w-[60px] text-center text-gray-800 font-bold">
                 SPACE
               </div>
-              <span className="text-gray-700">Hard drop</span>
+              <span className="text-gray-700">{t("controls.hardDrop")}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="bg-gray-200 px-2 py-1 rounded text-xs font-mono min-w-[60px] text-center text-gray-800 font-bold">
                 H
               </div>
-              <span className="text-gray-700">Hold piece</span>
+              <span className="text-gray-700">{t("controls.holdPiece")}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="bg-gray-200 px-2 py-1 rounded text-xs font-mono min-w-[60px] text-center text-gray-800 font-bold">
                 P
               </div>
-              <span className="text-gray-700">Pause</span>
+              <span className="text-gray-700">{t("controls.pause")}</span>
             </div>
           </div>
         </div>
 
         <div className="flex gap-2">
+          <LanguageSelector />
           <Button
             onClick={togglePause}
             size="sm"
@@ -762,7 +772,7 @@ export default function Tetris() {
             size="sm"
             className="bg-gray-800 hover:bg-gray-700"
           >
-            {gameOver ? "Play Again" : "Reset"}
+            {gameOver ? t("game.playAgain") : t("game.reset")}
           </Button>
         </div>
       </div>

@@ -1,0 +1,28 @@
+{
+    "game": {
+        "title": "Tetris",
+        "gameOver": "Game Over!",
+        "paused": "Paused",
+        "playAgain": "Play Again",
+        "reset": "Reset",
+        "level": "Level",
+        "score": "Score",
+        "highscore": "Highscore",
+        "lines": "Lines",
+        "hold": "Hold",
+        "next": "Next"
+    },
+    "controls": {
+        "title": "Controls",
+        "move": "Move/Rotate",
+        "hardDrop": "Hard drop",
+        "holdPiece": "Hold piece",
+        "pause": "Pause"
+    },
+    "ui": {
+        "language": "Language",
+        "selectLanguage": "Select language",
+        "music": "Music",
+        "sound": "Sound"
+    }
+}
