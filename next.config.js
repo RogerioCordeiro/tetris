@@ -9,9 +9,8 @@ const nextConfig = {
   },
   // Para funcionar com subpaths no GitHub Pages
   // Se o repositório for nomeado diferente de username.github.io
-  // descomente e ajuste a linha abaixo:
-  // basePath: '/tetris',
-  // assetPrefix: '/tetris/',
+  basePath: '/tetris',
+  assetPrefix: '/tetris/',
 };
 
 module.exports = nextConfig;

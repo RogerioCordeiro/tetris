@@ -11,6 +11,12 @@ import { Play, Pause, Music, VolumeX } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// Helper function to get correct asset paths for GitHub Pages
+const getAssetPath = (path: string) => {
+  const basePath = process.env.NODE_ENV === "production" ? "/tetris" : "";
+  return `${basePath}${path}`;
+};
+
 const TETROMINOS = {
   I: { shape: [[1, 1, 1, 1]], color: "#06b6d4" }, // cyan-500
   J: {
@@ -111,6 +117,7 @@ export default function Tetris() {
   const [level, setLevel] = useState(1);
   const [isMusicPlaying, setIsMusicPlaying] = useState(true);
   const [completedRows, setCompletedRows] = useState<number[]>([]);
+  const [audioInitialized, setAudioInitialized] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const gameStateRef = useRef({
     board,
@@ -509,15 +516,66 @@ export default function Tetris() {
     if (audioRef.current) {
       audioRef.current.volume = 0.3;
       audioRef.current.loop = true;
+
       if (!gameOver && isMusicPlaying && !isPaused) {
         audioRef.current
           .play()
-          .catch((error) => console.error("Audio playback failed:", error));
+          .then(() => {
+            setAudioInitialized(true);
+          })
+          .catch((error) => {
+            console.error("Audio playback failed:", error);
+            // Se falhou por política de autoplay, vai tentar novamente na primeira interação
+            if (!audioInitialized && error.name === "NotAllowedError") {
+              console.log(
+                "Audio autoplay blocked, will try after user interaction"
+              );
+            }
+          });
       } else {
         audioRef.current.pause();
       }
     }
-  }, [gameOver, isMusicPlaying, isPaused]);
+  }, [gameOver, isMusicPlaying, isPaused, audioInitialized]);
+
+  // Efeito para iniciar áudio após primeira interação do usuário
+  useEffect(() => {
+    const handleFirstUserInteraction = () => {
+      if (
+        !audioInitialized &&
+        audioRef.current &&
+        isMusicPlaying &&
+        !gameOver &&
+        !isPaused
+      ) {
+        audioRef.current
+          .play()
+          .then(() => {
+            setAudioInitialized(true);
+            console.log("Audio initialized after user interaction");
+          })
+          .catch((error) =>
+            console.error("Failed to start audio after interaction:", error)
+          );
+      }
+    };
+
+    if (!audioInitialized) {
+      // Eventos que indicam interação do usuário
+      const events = ["click", "keydown", "touchstart"];
+      events.forEach((event) => {
+        document.addEventListener(event, handleFirstUserInteraction, {
+          once: true,
+        });
+      });
+
+      return () => {
+        events.forEach((event) => {
+          document.removeEventListener(event, handleFirstUserInteraction);
+        });
+      };
+    }
+  }, [audioInitialized, isMusicPlaying, gameOver, isPaused]);
 
   const resetGame = () => {
     setBoard(createEmptyBoard());
@@ -586,7 +644,7 @@ export default function Tetris() {
     >
       <div className="mb-8">
         <Image
-          src="/tetris-logo.png"
+          src={getAssetPath("/tetris-logo.png")}
           alt="Tetris Logo"
           width={300}
           height={80}
@@ -713,7 +771,7 @@ export default function Tetris() {
             <div className="flex items-center gap-2">
               <div className="bg-gray-200 px-2 py-1 rounded text-xs font-mono min-w-[60px] flex items-center justify-center">
                 <Image
-                  src="/arrow-keys.png"
+                  src={getAssetPath("/arrow-keys.png")}
                   alt="Arrow Keys"
                   width={40}
                   height={30}
