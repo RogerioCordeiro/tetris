@@ -11,6 +11,12 @@ import { Play, Pause, Music, VolumeX } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// Helper function to get correct asset paths for GitHub Pages
+const getAssetPath = (path: string) => {
+  const basePath = process.env.NODE_ENV === 'production' ? '/tetris' : '';
+  return `${basePath}${path}`;
+};
+
 const TETROMINOS = {
   I: { shape: [[1, 1, 1, 1]], color: "#06b6d4" }, // cyan-500
   J: {
@@ -586,7 +592,7 @@ export default function Tetris() {
     >
       <div className="mb-8">
         <Image
-          src="/tetris-logo.png"
+          src={getAssetPath("/tetris-logo.png")}
           alt="Tetris Logo"
           width={300}
           height={80}
@@ -713,7 +719,7 @@ export default function Tetris() {
             <div className="flex items-center gap-2">
               <div className="bg-gray-200 px-2 py-1 rounded text-xs font-mono min-w-[60px] flex items-center justify-center">
                 <Image
-                  src="/arrow-keys.png"
+                  src={getAssetPath("/arrow-keys.png")}
                   alt="Arrow Keys"
                   width={40}
                   height={30}
