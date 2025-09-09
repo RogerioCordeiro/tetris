@@ -23,6 +23,17 @@
         "language": "Language",
         "selectLanguage": "Select language",
         "music": "Music",
-        "sound": "Sound"
+        "sound": "Sound",
+        "home": "Home",
+        "backToGithub": "Back to GitHub"
+    },
+    "mobile": {
+        "controls": "Touch Controls",
+        "left": "Left",
+        "right": "Right",
+        "rotate": "Rotate",
+        "down": "Down",
+        "drop": "Drop",
+        "hold": "Hold"
     }
 }
