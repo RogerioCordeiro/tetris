@@ -23,6 +23,17 @@
         "language": "Idioma",
         "selectLanguage": "Selecionar idioma",
         "music": "Música",
-        "sound": "Som"
+        "sound": "Som",
+        "home": "Página Inicial",
+        "backToGithub": "Voltar ao GitHub"
+    },
+    "mobile": {
+        "controls": "Controles Touch",
+        "left": "Esquerda",
+        "right": "Direita",
+        "rotate": "Girar",
+        "down": "Descer",
+        "drop": "Derrubar",
+        "hold": "Segurar"
     }
 }
